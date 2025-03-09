@@ -1,10 +1,10 @@
 <div align="center">
   <a href="https://www.camel-ai.org/">
-    <img src="docs/images/banner.png" alt="Banner">
+    <img src="docs/images/banner.png" alt="Banner" />
   </a>
 </div>
 
-</br>
+<br/>
 
 <div align="center">
 
@@ -20,7 +20,7 @@
 </div>
 
 
-<hr>
+<hr/>
 
 <div align="center">
 <h4 align="center">
@@ -38,7 +38,7 @@
 <p style="line-height: 1.5; text-align: center;"> 🐫 CAMEL is an open-source community dedicated to finding the scaling laws of agents. We believe that studying these agents on a large scale offers valuable insights into their behaviors, capabilities, and potential risks. To facilitate research in this field, we implement and support various types of agents, tasks, prompts, models, and simulated environments.</p>
 
 
-<br>
+<br/>
 
 
 Join us ([*Discord*](https://discord.camel-ai.org/) or [*WeChat*](https://ghli.org/camel/wechat.png)) in pushing the boundaries of finding the scaling laws of agents. 
@@ -48,11 +48,10 @@ Join us ([*Discord*](https://discord.camel-ai.org/) or [*WeChat*](https://ghli.o
 </div>
 
 <div align="center">
-    <img src="docs/images/star.gif" alt="Star" width="186" height="60">
-  </a>
+    <img src="docs/images/star.gif" alt="Star" width="186" height="60"/>
 </div>
 
-<br>
+<br/>
 
 
 ## CAMEL Framework Design Principles
@@ -73,7 +72,7 @@ Agents maintain stateful memory, enabling them to perform multi-step interaction
 
 Every line of code and comment serves as a prompt for agents. Code should be written clearly and readably, ensuring both humans and agents can interpret it effectively.
 
-<br>
+<br/>
 
 ## Why Use CAMEL for Your Research?
 
@@ -117,7 +116,7 @@ We are a community-driven research collective comprising over 100 researchers de
   </tr>
 </table>
 
-<br>
+<br/>
 
 ## What Can You Build With CAMEL?
 
@@ -126,25 +125,25 @@ We are a community-driven research collective comprising over 100 researchers de
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/blob/master/camel/datagen/cot_datagen.py">
-    <img src="docs/images/cot.png" alt="CoT Data Generation">
+    <img src="docs/images/cot.png" alt="CoT Data Generation"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/tree/master/camel/datagen/self_instruct">
-    <img src="docs/images/self_instruct.png" alt="Self-Instruct Data Generation">
+    <img src="docs/images/self_instruct.png" alt="Self-Instruct Data Generation"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/tree/master/camel/datagen/source2synth">
-    <img src="docs/images/source2synth.png" alt="Source2Synth Data Generation">
+    <img src="docs/images/source2synth.png" alt="Source2Synth Data Generation"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/blob/master/camel/datagen/self_improving_cot.py">
-    <img src="docs/images/self_improving.png" alt="Self-Improving Data Generation">
+    <img src="docs/images/self_improving.png" alt="Self-Improving Data Generation"/>
   </a>
 </div>
 
@@ -152,19 +151,19 @@ We are a community-driven research collective comprising over 100 researchers de
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/blob/master/camel/societies/role_playing.py">
-    <img src="docs/images/role_playing.png" alt="Role Playing">
+    <img src="docs/images/role_playing.png" alt="Role Playing"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://github.com/camel-ai/camel/tree/master/camel/societies/workforce">
-    <img src="docs/images/workforce.png" alt="Workforce">
+    <img src="docs/images/workforce.png" alt="Workforce"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://docs.camel-ai.org/cookbooks/advanced_features/agents_with_rag.html">
-    <img src="docs/images/rag_pipeline.png" alt="RAG Pipeline">
+    <img src="docs/images/rag_pipeline.png" alt="RAG Pipeline"/>
   </a>
 </div>
 
@@ -173,11 +172,11 @@ We are a community-driven research collective comprising over 100 researchers de
 
 <div align="center">
   <a href="https://github.com/camel-ai/oasis">
-    <img src="docs/images/oasis_case.png" alt="Oasis Case">
+    <img src="docs/images/oasis_case.png" alt="Oasis Case"/>
   </a>
 </div>
 
-<br>
+<br/>
 
 ## Quick Start
 
@@ -204,13 +203,13 @@ Explore different types of agents, their roles, and their applications.
 
 Please reachout to us on [CAMEL discord](https://discord.camel-ai.org/) if you encounter any issue set up CAMEL.
 
-<br>
+<br/>
 
 ## Tech Stack
 
 <div align="center">
   <a href="https://docs.camel-ai.org">
-    <img src="docs/images/techstack.png" alt="TechStack">
+    <img src="docs/images/techstack.png" alt="TechStack"/>
   </a>
 </div>
 
@@ -242,25 +241,25 @@ We believe that studying these agents on a large scale offers valuable insights 
 
 <div align="center">
   <a href="https://crab.camel-ai.org/">
-    <img src="docs/images/crab.png" alt="CRAB">
+    <img src="docs/images/crab.png" alt="CRAB"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://www.agent-trust.camel-ai.org/">
-    <img src="docs/images/agent_trust.png" alt="Agent Trust">
+    <img src="docs/images/agent_trust.png" alt="Agent Trust"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://oasis.camel-ai.org/">
-    <img src="docs/images/oasis.png" alt="OASIS">
+    <img src="docs/images/oasis.png" alt="OASIS"/>
   </a>
 </div>
 
 <div align="center">
   <a href="https://emos-project.github.io/">
-    <img src="docs/images/emos.png" alt="Emos">
+    <img src="docs/images/emos.png" alt="Emos"/>
   </a>
 </div>
 
@@ -271,10 +270,10 @@ We believe that studying these agents on a large scale offers valuable insights 
 > Rigorous research takes time and resources. We are a community-driven research collective with 100+ researchers exploring the frontier research of Multi-agent Systems. Join our ongoing projects or test new ideas with us, [reach out via email](mailto:camel-ai@eigent.ai) for more information.
 >
 ><div align="center">
->    <img src="docs/images/partners.png" alt="Partners">
+>    <img src="docs/images/partners.png" alt="Partners"/>
 ></div>
 
-<br>
+<br/>
 
 ## Syenthetic Datasets
 
@@ -301,7 +300,7 @@ For more details, please see our [`Models Documentation`](https://docs.camel-ai.
 | **Code**         | [Instructions](https://atlas.nomic.ai/map/902d6ccb-0bbb-4294-83a8-1c7d2dae03c8/ace2e146-e49f-41db-a1f4-25a2c4be2457) | [Tasks](https://atlas.nomic.ai/map/efc38617-9180-490a-8630-43a05b35d22d/2576addf-a133-45d5-89a9-6b067b6652dd) |
 | **Misalignment** | [Instructions](https://atlas.nomic.ai/map/5c491035-a26e-4a05-9593-82ffb2c3ab40/2bd98896-894e-4807-9ed8-a203ccb14d5e) | [Tasks](https://atlas.nomic.ai/map/abc357dd-9c04-4913-9541-63e259d7ac1f/825139a4-af66-427c-9d0e-f36b5492ab3f) |
 
-<br>
+<br/>
 
 ## Cookbooks (Usecases)
 Practical guides and tutorials for implementing specific functionalities in CAMEL-AI agents and societies.
@@ -346,7 +345,7 @@ Practical guides and tutorials for implementing specific functionalities in CAME
 | **[Create AI Agents that work with your PDFs](https://docs.camel-ai.org/cookbooks/data_processing/agent_with_chunkr_for_pdf_parsing.html)** | Learn how to create AI agents that work with your PDFs using Chunkr and Mistral AI. |
 
 
-<br>
+<br/>
 
 
 ## Contributing to CAMEL
@@ -355,7 +354,7 @@ Practical guides and tutorials for implementing specific functionalities in CAME
 >
 > We also welcome you to help CAMEL grow by sharing it on social media, at events, or during conferences. Your support makes a big difference!
 
-<br>
+<br/>
 
 ## Community & Contact
 For more information please contact camel-ai@eigent.ai
@@ -368,7 +367,7 @@ For more information please contact camel-ai@eigent.ai
 
 - **Ambassador Project:** Advocate for CAMEL-AI, host events, and contribute content. [Learn more](https://www.camel-ai.org/community)
 
-<br>
+<br/>
 
 ## Citation
 ```
@@ -397,7 +396,7 @@ We implemented amazing research ideas from other works for you to build, compare
 
 The source code is licensed under Apache 2.0.
 
-<br>
+<br/>
 
 [docs-image]: https://img.shields.io/badge/Documentation-EB3ECC
 [docs-url]: https://camel-ai.github.io/camel/index.html

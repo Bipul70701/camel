@@ -1,0 +1,121 @@
+{
+    "$schema": "https://mintlify.com/schema.json",
+    "name": "CAMEL Documentation",
+    "theme": "mint",
+    "logo": {
+      "light": "docs/images/oasis.png",
+      "dark": "docs/images/oasis.png",
+      "href": "https://camel-ai.org"
+    },
+    "favicon": "docs/images/oasis.png",
+    "colors": {
+      "primary": "#2AB673",
+      "light": "#55D799",
+      "dark": "#117866"
+    },
+    "navbar": {
+      "links": [
+        { "label": "CAMEL Home", "href": "https://camel-ai.org" },
+        { "label": "GitHub", "href": "https://github.com/camel-ai/camel" }
+      ],
+      "primary": {
+        "type": "button",
+        "label": "Get Started",
+        "href": "https://docs.camel-ai.org/get_started/installation"
+      }
+    },
+    "navigation": {
+      "tabs": [
+        {
+          "tab": "Documentation",
+          "groups": [
+            {
+              "group": "Overview",
+              "pages": [
+                "docs/index.md",
+                "docs/camel.md"
+              ]
+            },
+            {
+              "group": "Core Packages",
+              "pages": [
+                "docs/camel.agents.md",
+                "docs/camel.configs.md",
+                "docs/camel.data_collector.md",
+                "docs/camel.datagen.md",
+                "docs/camel.datahubs.md",
+                "docs/camel.datasets.md",
+                "docs/camel.embeddings.md",
+                "docs/camel.environments.md",
+                "docs/camel.extractors.md",
+                "docs/camel.interpreters.md",
+                "docs/camel.loaders.md",
+                "docs/camel.memories.md",
+                "docs/camel.messages.md",
+                "docs/camel.models.md",
+                "docs/camel.personas.md",
+                "docs/camel.prompts.md",
+                "docs/camel.responses.md",
+                "docs/camel.retrievers.md",
+                "docs/camel.runtime.md",
+                "docs/camel.schemas.md",
+                "docs/camel.societies.md",
+                "docs/camel.storages.md",
+                "docs/camel.tasks.md",
+                "docs/camel.terminators.md",
+                "docs/camel.toolkits.md",
+                "docs/camel.types.md",
+                "docs/camel.utils.md",
+                "docs/camel.verifiers.md"
+              ]
+            },
+            {
+              "group": "Cookbooks",
+              "pages": [
+                "docs/cookbooks/advanced_features/index.md",
+                "docs/cookbooks/applications/index.md",
+                "docs/cookbooks/basic_concepts/index.md",
+                "docs/cookbooks/data_generation/index.md",
+                "docs/cookbooks/data_processing/index.md",
+                "docs/cookbooks/multi_agent_society/index.md"
+              ]
+            },
+            {
+              "group": "Key Modules",
+              "pages": [
+                "docs/key_modules/agents.md",
+                "docs/key_modules/datagen.md",
+                "docs/key_modules/embeddings.md",
+                "docs/key_modules/interpreters.md",
+                "docs/key_modules/loaders.md",
+                "docs/key_modules/memory.md",
+                "docs/key_modules/messages.md",
+                "docs/key_modules/models.md",
+                "docs/key_modules/prompts.md",
+                "docs/key_modules/retrievers.md",
+                "docs/key_modules/society.mdx",
+                "docs/key_modules/storages.md",
+                "docs/key_modules/tasks.md",
+                "docs/key_modules/tools.md",
+                "docs/key_modules/workforce.md"
+              ]
+            },
+            {
+              "group": "Get Started",
+              "pages": [
+                "docs/get_started/installation.md",
+                "docs/get_started/setup.md"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "socials": {
+        "github": "https://github.com/camel-ai/camel",
+        "twitter": "https://x.com/CamelAIOrg"
+      }
+    }
+  }
+  

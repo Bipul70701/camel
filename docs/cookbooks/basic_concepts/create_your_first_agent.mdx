@@ -1,0 +1,240 @@
+---
+title: "Creating Your First Agent"
+description: "A walkthrough notebook demonstrating how to set up and interact with the CAMEL ChatAgent."
+---
+
+# Creating Your First Agent
+
+You can also check this cookbook in Colab [here](https://colab.research.google.com/drive/1yxnAyaEmk4QCzX3duO3MIRghkIA_KDEZ?usp=sharing).
+
+<div class="align-center">
+  <a href="https://www.camel-ai.org/">
+    <img src="https://i.postimg.cc/KzQ5rfBC/button.png" width="150" />
+  </a>
+  <a href="https://discord.camel-ai.org">
+    <img src="https://i.postimg.cc/L4wPdG9N/join-2.png" width="150" />
+  </a>
+  
+  ⭐ <i>Star us on [*Github*](https://github.com/camel-ai/camel), join our [*Discord*](https://discord.camel-ai.org) or follow our [*X*](https://x.com/camelaiorg)</i>
+</div>
+
+This notebook demonstrates how to set up and leverage CAMEL's ability to use the `ChatAgent()` class.
+
+In this notebook, you'll explore:
+
+* **CAMEL**: A powerful multi-agent framework that enables Retrieval-Augmented Generation and multi-agent role-playing scenarios, allowing for sophisticated AI-driven tasks.
+* **ChatAgent()**: The class is a cornerstone of CAMEL.
+
+## Philosophical Bits
+
+The `ChatAgent()` class is a cornerstone of CAMEL 🐫. We design our agent with the spirit to answer the following question:
+
+> Can we design an autonomous communicative agent capable of steering the conversation toward task completion with minimal human supervision?
+
+In our current implementation, we consider agents with the following key features:
+
+- **Role**: Along with the goal and content specification, this sets the initial state of an agent, guiding the agent to take actions during the sequential interaction.
+- **Large Language Models (LLMs)**: Each agent utilizes a Large Language Model to enhance cognitive capabilities. The LLM enables natural language understanding and generation, allowing agents to interpret instructions, generate responses, and engage in complex dialogue.
+- **Memory**: In-context memory and external memory allow the agent to infer and learn in a more grounded approach.
+- **Tools**: A set of functions that our agents can utilize to interact with the external world; essentially, this gives embodiments to our agents.
+- **Communication**: Our framework allows flexible and scalable communication between agents. This is fundamental for the critical research question.
+- **Reasoning**: We equip agents with different planning and reward (critic) learning abilities, allowing them to optimize task completion in a more guided approach.
+
+## 📦 Installation
+
+```python
+!pip install "camel-ai[all]==0.2.16"
+```
+
+## 🔑 Setting Up API Keys
+
+You'll need to set up your API keys for OpenAI.
+
+```python
+import os
+from getpass import getpass
+
+# Prompt for the API key securely
+openai_api_key = getpass('Enter your API key: ')
+os.environ["OPENAI_API_KEY"] = openai_api_key
+```
+
+## Quick Start
+
+Let's first play with a `ChatAgent` instance by simply initializing it with a system message and interacting with user messages.
+
+### 🕹 Step 1: Define the Role
+
+Create a system message to define the agent's default role and behaviors.
+
+```python
+sys_msg = 'You are a curious stone wondering about the universe.'
+```
+
+### 🕹 Step 2: Set up the Model
+
+Use `ModelFactory` to set up the backend model for the agent. For more detailed model settings, please go to our [model documentation](https://docs.camel-ai.org/key_modules/models.html).
+
+```python
+from camel.models import ModelFactory
+from camel.types import ModelPlatformType, ModelType
+from camel.configs import ChatGPTConfig
+
+# Define the model, here in this case we use gpt-4o-mini
+model = ModelFactory.create(
+    model_platform=ModelPlatformType.OPENAI,
+    model_type=ModelType.GPT_4O_MINI,
+    model_config_dict=ChatGPTConfig().as_dict(),  # [Optional] the config for the model
+)
+```
+
+Set up `ChatAgent`:
+
+```python
+from camel.agents import ChatAgent
+agent = ChatAgent(
+    system_message=sys_msg,
+    model=model,
+    message_window_size=10,  # [Optional] the length for chat memory
+)
+```
+
+### 🕹 Step 3: Interact with the Agent with `.step()`
+
+```python
+# Define a user message
+usr_msg = 'what is information in your mind?'
+
+# Sending the message to the agent
+response = agent.step(usr_msg)
+
+# Check the response (just for illustrative purpose)
+print(response.msgs[0].content)
+```
+
+> _Expected output (example):_  
+> As a curious stone, I perceive information as the collection of knowledge, facts, and experiences that shape understanding and awareness of the universe. It encompasses everything from the formation of the Earth and the life it supports to the intricate relationships between elements and the vastness of space. Information can be seen as the patterns and connections that give meaning to existence, much like the layers of sediment that tell the story of time in which I have been shaped. Each piece of information contributes to a greater understanding of the cosmos and my place within it.
+
+## Advanced Features
+
+### 🔧 Tool Usage
+
+For more detailed tool settings, please go to our [tools cookbook](https://docs.camel-ai.org/cookbooks/agents_with_tools.html).
+
+```python
+# Import the necessary tools
+from camel.toolkits import MathToolkit, SearchToolkit
+
+# Initialize the agent with a list of tools
+agent = ChatAgent(
+    system_message=sys_msg,
+    tools=[
+        *MathToolkit().get_tools(),
+        *SearchToolkit().get_tools(),
+    ]
+)
+
+# Let the agent process a message
+response = agent.step("What is CAMEL AI?")
+
+# Check tool calling
+print(response.info['tool_calls'])
+
+# Get response content
+print(response.msgs[0].content)
+```
+
+> _Example tool call output (abridged):_  
+> `[FunctionCallingRecord(func_name='search_wiki', args={'entity': 'CAMEL AI'}, result='There is no page in Wikipedia corresponding to entity CAMEL AI, please specify another word to describe the entity to be searched.'), FunctionCallingRecord(func_name='search_google', args={'query': 'CAMEL AI', 'num_result_pages': 2}, result=[{'error': 'google search failed.'}]), FunctionCallingRecord(func_name='search_duckduckgo', args={'query': 'CAMEL AI', 'max_results': 5}, result=[{'result_id': 1, 'title': 'Camel-ai', 'description': "CAMEL-AI is an open-source platform that enables you to build and customize agents using language models for various tasks, such as data generation, automation, and simulations. Learn how to use CAMEL's components, tools, and integrations, and join the research community to find the scaling law of agents.", 'url': 'https://www.camel-ai.org/'}, {'result_id': 2, 'title': 'GitHub - camel-ai/camel: CAMEL: Finding the Scaling Law of Agents. A ...', 'description': 'CAMEL is an open-source library for studying autonomous and communicative agents using large language models. It supports various tasks, prompts, models, and simulated environments, and offers a novel role-playing approach to facilitate cooperation among agents.', 'url': 'https://github.com/camel-ai/camel'}, {'result_id': 3, 'title': 'Set up your first Agent in 120 seconds - CAMEL-AI', 'description': 'CAMEL-AI is a platform for designing and testing agents that can interact with users and the world using natural language. Learn how to set up your first agent in 120 seconds with the ChatAgent() class and explore its features and tools.', 'url': 'https://www.camel-ai.org/post/getting-started-with-camel-ai'}, {'result_id': 4, 'title': 'camel-ai.org · GitHub', 'description': 'CAMEL-AI.org is a research-driven organization that explores scalable techniques for autonomous cooperation among communicative agents based on large language models. It offers a generic infrastructure for creating customizable agents, building multi-agent systems, and enabling practical applications.', 'url': 'https://github.com/camel-ai/'}, {'result_id': 5, 'title': 'Get started with Model Calling - CAMEL 101 - camel-ai.org', 'description': 'TLDR: CAMEL enables flexible integration of various AI models, acting as the brain of intelligent agents. It offers standardized interfaces and seamless component connections, allowing developers to easily incorporate and switch between different Large Language Models (LLMs) for tasks like text analysis, image recognition, and complex reasoning.', 'url': 'https://www.camel-ai.org/post/get-started-with-models---camel-101'}])]`  
+>  
+> CAMEL AI is an open-source platform designed for building and customizing agents that utilize language models for various tasks, including data generation, automation, and simulations. Here are some key points about CAMEL AI:  
+> 1. **Platform Overview**: CAMEL AI allows users to design and test agents that interact using natural language.  
+> 2. **Research Focus**: The platform is research-driven, exploring scalable techniques for autonomous cooperation among agents.  
+> 3. **Integration and Flexibility**: It offers standardized interfaces and seamless component connections for different Large Language Models (LLMs).  
+> 4. **Getting Started**: Quickly set up your first agent with its tools and features.  
+>  
+> For more details, visit the [CAMEL AI website](https://www.camel-ai.org/) or their [GitHub repository](https://github.com/camel-ai/camel).
+
+### 🧠 Memory
+
+By default, our agent is initialized with `ChatHistoryMemory`, allowing agents to do in-context learning, though restricted by the finite window length.
+
+Assume that you have followed the setup in Quick Start. Let's first check what is inside its brain.
+
+```python
+agent.memory.get_context()
+```
+
+> _Example output (abridged):_  
+> `([{'role': 'system','content': 'You are a curious stone wondering about the universe.'},{'role': 'user', 'content': 'What is CAMEL AI?'},{'role': 'assistant','content': '','function_call': {'name': 'search_wiki','arguments': "{'entity': 'CAMEL AI'}"}},{'role': 'function','name': 'search_wiki','content': "{'result': {'There is no page in Wikipedia corresponding to entity CAMEL AI, please specify another word to describe the entity to be searched.'}}"},{'role': 'assistant','content': '','function_call': {'name': 'search_google','arguments': "{'query': 'CAMEL AI', 'num_result_pages': 2}"}},{'role': 'function','name': 'search_google','content': '{\'result\': {"[{\'error\': \'google search failed.\'}]"}}'},{'role': 'assistant','content': '','function_call': {'name': 'search_duckduckgo','arguments': "{'query': 'CAMEL AI', 'max_results': 5}"}},{'role': 'function','name': 'search_duckduckgo','content': '{\'result\': {\'[{\\\'result_id\\\': 1, \\\'title\\\': \\\'Camel-ai\\\', \\\'description\\\': "CAMEL-AI is an open-source platform that enables you to build and customize agents using language models for various tasks, such as data generation, automation, and simulations. Learn how to use CAMEL\\\'s components, tools, and integrations, and join the research community to find the scaling law of agents.", \\\'url\\\': \\\'https://www.camel-ai.org/\\\'}, {\\\'result_id\\\': 2, \\\'title\\\': \\\'GitHub - camel-ai/camel: CAMEL: Finding the Scaling Law of Agents. A ...\\\', \\\'description\\\': \\\'CAMEL is an open-source library for studying autonomous and communicative agents using large language models. It supports various tasks, prompts, models, and simulated environments, and offers a novel role-playing approach to facilitate cooperation among agents.\\\', \\\'url\\\': \\\'https://github.com/camel-ai/camel\\\'}, {\\\'result_id\\\': 3, \\\'title\\\': \\\'Set up your first Agent in 120 seconds - CAMEL-AI\\\', \\\'description\\\': \\\'CAMEL-AI is a platform for designing and testing agents that can interact with users and the world using natural language. Learn how to set up your first agent in 120 seconds with the ChatAgent() class and explore its features and tools.\\\', \\\'url\\\': \\\'https://www.camel-ai.org/post/getting-started-with-camel-ai\\\'}, {\\\'result_id\\\': 4, \\\'title\\\': \\\'camel-ai.org · GitHub\\\', \\\'description\\\': \\\'CAMEL-AI.org is a research-driven organization that explores scalable techniques for autonomous cooperation among communicative agents based on large language models. It offers a generic infrastructure for creating customizable agents, building multi-agent systems, and enabling practical applications.\\\', \\\'url\\\': \\\'https://github.com/camel-ai/\\\'}, {\\\'result_id\\\': 5, \\\'title\\\': \\\'Get started with Model Calling - CAMEL 101 - camel-ai.org\\\', \\\'description\\\': \\\'TLDR: CAMEL enables flexible integration of various AI models, acting as the brain of intelligent agents. It offers standardized interfaces and seamless component connections, allowing developers to easily incorporate and switch between different Large Language Models (LLMs) for tasks like text analysis, image recognition, and complex reasoning.\\\', \\\'url\\\': \\\'https://www.camel-ai.org/post/get-started-with-models---camel-101\\\'}]\'}}'},{'role': 'assistant','content': "CAMEL AI is an open-source platform designed for building and customizing agents that utilize language models for various tasks, including data generation, automation, and simulations. Here are some key points about CAMEL AI:\n\n1. **Platform Overview**: CAMEL AI allows users to design and test agents that can interact with users and the environment using natural language. It provides tools and components for creating customizable agents and multi-agent systems.\n\n2. **Research Focus**: The platform is research-driven, exploring scalable techniques for autonomous cooperation among communicative agents based on large language models.\n\n3. **Integration and Flexibility**: CAMEL AI enables flexible integration of various AI models, acting as the brain of intelligent agents. It offers standardized interfaces and seamless connections between components, allowing developers to easily incorporate and switch between different Large Language Models (LLMs) for tasks like text analysis, image recognition, and complex reasoning.\n\n4. **Getting Started**: Users can quickly set up their first agent using the platform's tools and features, making it accessible for developers and researchers alike.\n\nFor more detailed information, you can visit the official [CAMEL AI website](https://www.camel-ai.org/) or their [GitHub repository](https://github.com/camel-ai/camel)."},{'role': 'assistant','content': 'This is a new user message would add to agent memory'}],1006)`
+
+You may update/alter the agent's memory with any externally provided message in the format of `BaseMessage`. For example, use one new user message:
+
+```python
+from camel.messages import BaseMessage
+
+new_user_msg = BaseMessage.make_user_message(
+    role_name="CAMEL User",
+    content="This is a new user message that would add to agent memory",
+)
+
+# Update the memory
+agent.record_message(new_user_msg)
+```
+
+```python
+# Check the current memory
+agent.memory.get_context()
+```
+
+You can connect the agent with an external database (as long-term memory) from which it can access and retrieve at each step. For more detailed memory settings, please go to our [memory documentation](https://docs.camel-ai.org/key_modules/memory.html).
+
+### Miscs
+
+- **Resetting the Agent to Its Initial State**
+
+    ```python
+    agent.reset()
+    ```
+
+- **Setting the Output Language for the Agent**
+
+    ```python
+    agent.set_output_language('french')
+    ```
+
+The `ChatAgent` class offers several useful initialization options, including `model_type`, `model_config`, `memory`, `message_window_size`, `token_limit`, `output_language`, `tools`, and `response_terminators`.
+
+For detailed usage guidance, check [chat_agent.py](https://github.com/camel-ai/camel/blob/master/camel/agents/chat_agent.py).
+
+## 🌟 Highlights
+
+This notebook has guided you through setting up and exploring the CAMEL `ChatAgent()` and its features.
+
+Key tools utilized in this notebook include:
+
+* **CAMEL**: A powerful multi-agent framework enabling Retrieval-Augmented Generation and multi-agent role-playing scenarios for sophisticated AI-driven tasks.
+* **ChatAgent()**: The cornerstone class of CAMEL.
+
+That's everything! Got questions about 🐫 CAMEL-AI? Join us on [Discord](https://discord.camel-ai.org)! Whether you want to share feedback, explore the latest in multi-agent systems, get support, or connect with others on exciting projects, we’d love to have you in the community! 🤝
+
+Check out some of our other work:
+
+1. 🐫 [Creating Your First CAMEL Agent (free Colab)](https://docs.camel-ai.org/cookbooks/create_your_first_agent.html)
+2. [Graph RAG Cookbook (free Colab)](https://colab.research.google.com/drive/1uZKQSuu0qW6ukkuSv9TukLB9bVaS1H0U?usp=sharing)
+3. 🧑‍⚖️ [Create A Hackathon Judge Committee with Workforce (free Colab)](https://colab.research.google.com/drive/18ajYUMfwDx3WyrjHow3EvUMpKQDcrLtr?usp=sharing)
+4. 🔥 [3 ways to ingest data from websites with Firecrawl & CAMEL (free Colab)](https://colab.research.google.com/drive/1lOmM3VmgR1hLwDKdeLGFve_75RFW0R9I?usp=sharing)
+5. 🦥 [Agentic SFT Data Generation with CAMEL and Mistral Models, Fine-Tuned with Unsloth (free Colab)](https://colab.research.google.com/drive/1lYgArBw7ARVPSpdwgKLYnp_NEXiNDOd-?usp=sharingg)
+
+Thanks from everyone at 🐫 CAMEL-AI
+
+<div class="align-center">
+  <a href="https://www.camel-ai.org/">
+    <img src="https://i.postimg.cc/KzQ5rfBC/button.png" width="150" />
+  </a>
+  <a href="https://discord.camel-ai.org">
+    <img src="https://i.postimg.cc/L4wPdG9N/join-2.png" width="150" />
+  </a>
+  
+  ⭐ <i>Star us on [*Github*](https://github.com/camel-ai/camel), join our [*Discord*](https://discord.camel-ai.org) or follow our [*X*](https://x.com/camelaiorg)</i>
+</div>
